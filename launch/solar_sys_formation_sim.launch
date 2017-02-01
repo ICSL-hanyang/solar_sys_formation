@@ -31,11 +31,27 @@
 
             <arg name="rcS" value="$(find solar_sys_formation)/px4-configs/SITL/init/lpe/iris2"/>
 	    <arg name="sdf" default="$(find solar_sys_formation)/px4-configs/models/iris/iris2.sdf"/>
-            <arg name="fcu_url" value="udp://:14580@localhost:14558"/>
+            <arg name="fcu_url" value="udp://:14541@localhost:14558"/>
 
             <arg name="x" value="2"/>
             <arg name="y" value="0"/>
             <arg name="z" value="0"/>
         </include>
     </group>
+
+    <!-- Start third instance of px4 and gazebo model-->
+    <group ns="satellite">
+        <include file="$(find solar_sys_formation)/launch/solar_copter_sim.launch">
+            <arg name="name" value="iris3" />
+
+            <arg name="rcS" value="$(find solar_sys_formation)/px4-configs/SITL/init/lpe/iris3"/>
+	    <arg name="sdf" default="$(find solar_sys_formation)/px4-configs/models/iris/iris3.sdf"/>
+            <arg name="fcu_url" value="udp://:14542@localhost:14559"/>
+
+            <arg name="x" value="1"/>
+            <arg name="y" value="0"/>
+            <arg name="z" value="0"/>
+        </include>
+    </group>
+
 </launch>

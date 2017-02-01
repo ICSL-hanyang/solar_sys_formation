@@ -426,7 +426,7 @@
       <robotNamespace/>
       <imuSubTopic>/imu</imuSubTopic>
       <mavlink_addr>INADDR_ANY</mavlink_addr>
-      <mavlink_udp_port>14561</mavlink_udp_port>
+      <mavlink_udp_port>14562</mavlink_udp_port>
       <motorSpeedCommandPubTopic>/gazebo/command/motor_speed</motorSpeedCommandPubTopic>
       <control_channels>
         <channel name='rotor1'>

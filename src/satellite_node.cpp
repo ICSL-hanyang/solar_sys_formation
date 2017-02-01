@@ -6,14 +6,14 @@
 #include "math.h" //수식 입력용
 #include "solar_sys_formation/msgCoordinate.h"//메세지 정의용
 
-double r = 4;
+double r = 2;
 double theta;
 double count=0.0;
 double wn = 1.2;
 
-float moon_x = 0.0;
-float moon_y = 0.0;
-float moon_z = 6.0;
+float satellite_x = 0.0;
+float satellite_y = 0.0;
+float satellite_z = 6.5;
 
 float earth_x;
 float earth_y;
@@ -42,20 +42,20 @@ int main(int argc, char **argv)
 
     ros::Subscriber ros_coordinate_sub = nh.subscribe<solar_sys_formation::msgCoordinate> ("ros_coordinate_msg", 100, msgCallback);
 
-    ros::Subscriber state_sub = nh.subscribe<mavros_msgs::State> ("mavros_moon/state", 10, state_cb);
+    ros::Subscriber state_sub = nh.subscribe<mavros_msgs::State> ("mavros_satellite/state", 10, state_cb);
 
-    ros::Publisher local_pos_pub = nh.advertise<geometry_msgs::PoseStamped> ("mavros_moon/setpoint_position/local", 10);
+    ros::Publisher local_pos_pub = nh.advertise<geometry_msgs::PoseStamped> ("mavros_satellite/setpoint_position/local", 10);
 
-    ros::ServiceClient arming_client = nh.serviceClient<mavros_msgs::CommandBool> ("mavros_moon/cmd/arming");
+    ros::ServiceClient arming_client = nh.serviceClient<mavros_msgs::CommandBool> ("mavros_satellite/cmd/arming");
 
-    ros::ServiceClient set_mode_client = nh.serviceClient<mavros_msgs::SetMode> ("mavros_moon/set_mode");
+    ros::ServiceClient set_mode_client = nh.serviceClient<mavros_msgs::SetMode> ("mavros_satellite/set_mode");
 
 
     //the setpoint publishing rate MUST be faster than 2Hz
     ros::Rate rate(40.0); //period 0.025 s
     
 
-	nh.param("moon_node/mode", mode, 0);
+	nh.param("satellite_node/mode", mode, 0);
 //	nh.param("wn", wn, 1.0);
 //	nh.param("r", r, 2.0);
 //	nh.param("center_x", center_x, 0.0);
@@ -79,9 +79,9 @@ int main(int argc, char **argv)
     
     //initial posistion
     geometry_msgs::PoseStamped pose;
-    pose.pose.position.x = moon_x;
-    pose.pose.position.y = moon_y;
-    pose.pose.position.z = moon_z;
+    pose.pose.position.x = satellite_x;
+    pose.pose.position.y = satellite_y;
+    pose.pose.position.z = satellite_z;
 
     //send a few setpoints before starting
     for(int i = 40; ros::ok() && i > 0; --i){
@@ -100,7 +100,7 @@ int main(int argc, char **argv)
             (ros::Time::now() - last_request > ros::Duration(5.0))){
             if( set_mode_client.call(offb_set_mode) &&
                 offb_set_mode.response.success){
-                ROS_INFO("moon Offboard enabled");
+                ROS_INFO("satellite Offboard enabled");
             }
             last_request = ros::Time::now();
         } else {
@@ -108,13 +108,13 @@ int main(int argc, char **argv)
                 (ros::Time::now() - last_request > ros::Duration(5.0))){
                 if( arming_client.call(arm_cmd) &&
                     arm_cmd.response.success){
-                    ROS_INFO("moon armed");
+                    ROS_INFO("satellite armed");
                 }
                 last_request = ros::Time::now();
             }
         }
 
-	nh.param("moon_node/mode", mode,0);
+	nh.param("satellite_node/mode", mode,0);
 //	ROS_INFO("moon mode = %d", mode);
 
 	
@@ -127,14 +127,14 @@ int main(int argc, char **argv)
 	else if(mode==1){
 		//geting own position
 		theta = wn*count*0.025;  //0.4rad/s if wn=0.4
-		moon_x = earth_x + r*sin(theta) -2;
-		moon_y = earth_y + r*cos(theta);
-		moon_z = earth_z + 1;
+		satellite_x = earth_x + r*sin(theta) -1;
+		satellite_y = earth_y + r*cos(theta);
+		satellite_z = earth_z+0.5;
 
 		//goto own position
-	    	pose.pose.position.x = moon_x;
-	    	pose.pose.position.y = moon_y;
-	    	pose.pose.position.z = moon_z;
+	    	pose.pose.position.x = satellite_x;
+	    	pose.pose.position.y = satellite_y;
+	    	pose.pose.position.z = satellite_z;
 		local_pos_pub.publish(pose);
 		count++;
 	}

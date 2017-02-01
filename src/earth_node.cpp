@@ -6,19 +6,20 @@
 #include "math.h" //수식 입력용
 #include "solar_sys_formation/msgCoordinate.h"//메세지 정의용
 
-double r = 5;
+double r = 8;
 double theta;
 double count=0.0;
-double wn = 0.15;
+double wn = 0.16;
 
 float sun_x = 0.0;
 float sun_y = 0.0;
-float sun_z = 5.0;
+float sun_z = 6.0;
 
 float earth_x = 0.0;
 float earth_y = 0.0;
 float earth_z = 6.0;
-int mode;
+
+int mode = 0;
 
 solar_sys_formation::msgCoordinate msg;
 
@@ -134,7 +135,7 @@ int main(int argc, char **argv)
 		local_pos_pub.publish(pose);
 
 		//publish earth position to moon
-		msg.earth_x = earth_x - 2;
+		msg.earth_x = earth_x;
 		msg.earth_y = earth_y;
 		msg.earth_z = earth_z;
 		ros_coordinate_pub.publish(msg);

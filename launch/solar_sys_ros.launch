@@ -22,14 +22,27 @@
 
 <node name="mavros_moon" pkg="mavros" type="mavros_node" output="screen">
 
-	<!--param name="fcu_url" value="/dev/ttyUSB0:57600"-->
-	<param name="fcu_url" value="udp://:14580@localhost:14558"/>
+	<param name="fcu_url" value="udp://:14541@localhost:14558"/>
 	<param name="gcs_url" value="$(arg gcs_url)" />
 	<param name="target_system_id" value="1" />
 	<param name="target_component_id" value="1" />
 </node>
 
 <node name="moon_node" pkg="solar_sys_formation" type="moon_node" output="screen">
+	<param name="mode" value="0" />
+</node>
+
+
+
+<node name="mavros_satellite" pkg="mavros" type="mavros_node" output="screen">
+	
+ 	<param name="fcu_url" value="udp://:14542@127.0.0.1:14559"/>
+	<param name="gcs_url" value="$(arg gcs_url)" />
+	<param name="target_system_id" value="1" />
+	<param name="target_component_id" value="1" />
+</node>
+
+<node name="satellite_node" pkg="solar_sys_formation" type="satellite_node" output="screen">
 	<param name="mode" value="0" />
 </node>
 
