@@ -1,0 +1,41 @@
+<launch>
+    <!-- Start Gazebo world -->
+    <include file="$(find gazebo_ros)/launch/empty_world.launch">
+        <arg name="headless" value="false"/>
+        <arg name="gui" value="true"/>
+        <arg name="world_name" value="$(find mavlink_sitl_gazebo)/worlds/empty.world" />     
+        <arg name="debug" value="false" />
+        <arg name="verbose" value="false" />
+        <arg name="paused" value="false" />
+    </include>
+
+    <!-- Start first instance of px4 and gazebo model-->
+    <group ns="earth">
+        <include file="$(find solar_sys_formation)/launch/solar_copter_sim.launch">
+            <arg name="name" value="iris" />
+
+            <arg name="rcS" value="$(find solar_sys_formation)/px4-configs/SITL/init/lpe/iris"/>
+	    <arg name="sdf" default="$(find solar_sys_formation)/px4-configs/models/iris/iris.sdf"/>
+            <arg name="fcu_url" value="udp://:14540@localhost:14557"/>
+
+            <arg name="x" value="0"/>
+            <arg name="y" value="0"/>
+            <arg name="z" value="0"/>
+        </include>
+    </group>
+
+    <!-- Start second instance of px4 and gazebo model-->
+    <group ns="moon">
+        <include file="$(find solar_sys_formation)/launch/solar_copter_sim.launch">
+            <arg name="name" value="iris2" />
+
+            <arg name="rcS" value="$(find solar_sys_formation)/px4-configs/SITL/init/lpe/iris2"/>
+	    <arg name="sdf" default="$(find solar_sys_formation)/px4-configs/models/iris/iris2.sdf"/>
+            <arg name="fcu_url" value="udp://:14580@localhost:14558"/>
+
+            <arg name="x" value="2"/>
+            <arg name="y" value="0"/>
+            <arg name="z" value="0"/>
+        </include>
+    </group>
+</launch>

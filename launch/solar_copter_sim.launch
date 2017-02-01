@@ -1,0 +1,29 @@
+<launch>
+    <!-- Parameters -->
+    <arg name="name" default="iris" />
+    <arg name="x" default="0"/>
+    <arg name="y" default="0"/>
+    <arg name="z" default="0"/>
+
+    <arg name="est" default="lpe"/>
+    <arg name="vehicle" default="iris"/>
+    <arg name="sdf" default="$(find mavlink_sitl_gazebo)/models/$(arg vehicle)/$(arg vehicle).sdf"/>
+
+    <arg name="rcS" default="$(find px4)/posix-configs/SITL/init/$(arg est)/$(arg vehicle)"/>
+    <arg name="fcu_url" default="udp://:14540@localhost:14557"/>
+
+    <!-- px4 instance -->
+    <node name="sitl" pkg="px4" type="px4" output="screen" args="$(find px4) $(arg rcS)" />
+
+    <!-- load model in gazebo -->
+    <node name="$(anon vehicle_spawn)" output="screen" pkg="gazebo_ros" type="spawn_model"
+        args="-sdf -file $(arg sdf) -model $(arg name) -x $(arg x) -y $(arg y) -z $(arg z) -R 0 -P 0 -Y 0"/>
+
+    <!-- mavros instance for ROS communication -->
+<!--  
+    <include file="$(find mavros)/launch/px4.launch">
+        <arg name="fcu_url" value="$(arg fcu_url)" />
+    </include>
+-->
+
+</launch>

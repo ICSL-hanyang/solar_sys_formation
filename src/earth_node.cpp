@@ -9,13 +9,15 @@
 double r = 5;
 double theta;
 double count=0.0;
-double wn = 0.09;
-float sun_x;
-float sun_y;
-float sun_z = 3.0;
+double wn = 0.15;
+
+float sun_x = 0.0;
+float sun_y = 0.0;
+float sun_z = 5.0;
+
 float earth_x = 0.0;
 float earth_y = 0.0;
-float earth_z = 5.0;
+float earth_z = 6.0;
 int mode;
 
 solar_sys_formation::msgCoordinate msg;
@@ -70,7 +72,7 @@ int main(int argc, char **argv)
     geometry_msgs::PoseStamped pose;
     pose.pose.position.x = earth_x;
     pose.pose.position.y = earth_y;
-    pose.pose.position.z = 5;
+    pose.pose.position.z = earth_z;
 
     //send a few setpoints before starting
     for(int i = 60; ros::ok() && i > 0; --i){
@@ -113,7 +115,7 @@ int main(int argc, char **argv)
 	if(mode == 0){ //home
 	pose.pose.position.x = 0;
     	pose.pose.position.y = 0;
-    	pose.pose.position.z = 5;
+    	pose.pose.position.z = 6;
         local_pos_pub.publish(pose);
 
 	}
@@ -123,7 +125,7 @@ int main(int argc, char **argv)
 		theta = wn*count*0.025;  //0.4rad/s if wn=0.4
 		earth_x = sun_x + r*sin(theta);
 		earth_y = sun_y + r*cos(theta);
-		earth_z = sun_z + 2;
+		earth_z = sun_z;
 
 		//goto own position
 	    	pose.pose.position.x = earth_x;
@@ -132,7 +134,7 @@ int main(int argc, char **argv)
 		local_pos_pub.publish(pose);
 
 		//publish earth position to moon
-		msg.earth_x = earth_x;
+		msg.earth_x = earth_x - 2;
 		msg.earth_y = earth_y;
 		msg.earth_z = earth_z;
 		ros_coordinate_pub.publish(msg);

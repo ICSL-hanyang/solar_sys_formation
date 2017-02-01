@@ -10,9 +10,11 @@ double r = 3;
 double theta;
 double count=0.0;
 double wn = 1.2;
-float moon_x;
-float moon_y;
-float moon_z = 7;
+
+float moon_x = 0.0;
+float moon_y = 0.0;
+float moon_z = 7.0;
+
 float earth_x;
 float earth_y;
 float earth_z;
@@ -127,7 +129,7 @@ int main(int argc, char **argv)
 		theta = wn*count*0.025;  //0.4rad/s if wn=0.4
 		moon_x = earth_x + r*sin(theta);
 		moon_y = earth_y + r*cos(theta);
-		moon_z = earth_z + 2;
+		moon_z = earth_z + 1;
 
 		//goto own position
 	    	pose.pose.position.x = moon_x;
