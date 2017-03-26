@@ -58,7 +58,7 @@ int main(int argc, char** argv)
       "mavros_moon/setpoint_position/local", 10);
 
   ros::Publisher local_vel_pub = nh.advertise<geometry_msgs::TwistStamped>(
-      "mavros_earth/setpoint_velocity/cmd_vel", 10);
+      "mavros_moon/setpoint_velocity/cmd_vel", 10);
 
   ros::Subscriber local_pos_sub = nh.subscribe<geometry_msgs::PoseStamped>(
       "mavros_moon/local_position/pose", 10, position_cb);
