@@ -15,7 +15,7 @@
 </node>
 
 <node name="earth_node" pkg="solar_sys_formation" type="earth_node" output="screen">
-	<param name="mode" value="0" />
+	<param name="mode" value="-1" />
 </node>
 
 
@@ -29,7 +29,7 @@
 </node>
 
 <node name="moon_node" pkg="solar_sys_formation" type="moon_node" output="screen">
-	<param name="mode" value="0" />
+	<param name="mode" value="-1" />
 </node>
 
 
@@ -43,7 +43,7 @@
 </node>
 
 <node name="satellite_node" pkg="solar_sys_formation" type="satellite_node" output="screen">
-	<param name="mode" value="0" />
+	<param name="mode" value="-1" />
 </node>
 
 
