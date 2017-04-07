@@ -3,6 +3,7 @@ project(solar_sys_formation)
 
 find_package(catkin REQUIRED COMPONENTS
   geometry_msgs
+  sensor_msgs
   mavros
   mavros_extras
   roscpp
@@ -16,7 +17,8 @@ add_message_files(FILES
 
 generate_messages(
    DEPENDENCIES
-   geometry_msgs   
+   geometry_msgs
+   sensor_msgs
    std_msgs
  )
 
@@ -24,7 +26,7 @@ generate_messages(
 catkin_package(
   INCLUDE_DIRS include
   LIBRARIES solar_sys_formation
-  CATKIN_DEPENDS geometry_msgs mavros mavros_extras roscpp std_msgs message_runtime
+  CATKIN_DEPENDS geometry_msgs sensor_msgs mavros mavros_extras roscpp std_msgs message_runtime
   DEPENDS system_lib
 )
 
@@ -46,3 +48,6 @@ add_executable(satellite_node src/satellite_node.cpp)
 add_dependencies(satellite_node solar_sys_formation_generate_messages_cpp)
 target_link_libraries(satellite_node ${catkin_LIBRARIES})
 
+add_executable(test_node src/test_node.cpp)
+add_dependencies(test_node solar_sys_formation_generate_messages_cpp)
+target_link_libraries(test_node ${catkin_LIBRARIES})
