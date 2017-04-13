@@ -7,8 +7,8 @@
 <arg name="tgt_component" default="1" />
 
 <node name="mavros" pkg="mavros" type="mavros_node" output="screen">
-        <param name="fcu_url" value="udp://:14540@127.0.0.1:14557"/>
-        <!--param name="fcu_url" value="/dev/ttyUSB0:57600"-->
+        <!--param name="fcu_url" value="udp://:14540@127.0.0.1:14557"-->
+        <param name="fcu_url" value="/dev/ttyUSB0:57600"/>
         <param name="gcs_url" value="$(arg gcs_url)" />
         <param name="target_system_id" value="1" />
         <param name="target_component_id" value="1" />

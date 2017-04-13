@@ -163,7 +163,8 @@ int main(int argc, char** argv)
       ros_coordinate_pub.publish(msg);
 
        //나중을 위한 GPS pub
-      //ROS_INFO("lon : %f, lat : %f,alt : %f", current_GPS.longitude, current_GPS.latitude,current_GPS.altitude);
+      ROS_INFO("lon : %f, lat : %f, alt : %f", current_GPS.longitude, current_GPS.latitude,current_GPS.altitude);
+      ROS_INFO("x : %f, y : %f, z : %f", msg.earth_x, msg.earth_y ,msg.earth_z);
 
       count++;
     }
