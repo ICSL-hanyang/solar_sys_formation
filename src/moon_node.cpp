@@ -11,9 +11,9 @@ double theta;
 double count = 0.0;
 double wn = 1.2;
 
-float moon_x = 0.0;
-float moon_y = 0.0;
-float moon_z = 8.0;
+double moon_x = 0.0;
+double moon_y = 0.0;
+double moon_z = 8.0;
 
 int mode = -1;
 geometry_msgs::PoseStamped moon_pos_set(double x, double y, double z);
@@ -84,7 +84,6 @@ int main(int argc, char** argv){
 
   while (ros::ok()){
     nh.param("moon_node/mode", mode, -1);
-
     if(current_state.mode != "OFFBOARD" && (ros::Time::now() - last_request > ros::Duration(3.0))){
       offb_set_mode.request.custom_mode = "OFFBOARD";
       if(set_mode_client.call(offb_set_mode) && offb_set_mode.response.success){
