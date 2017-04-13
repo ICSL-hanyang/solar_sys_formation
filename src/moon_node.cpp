@@ -137,5 +137,6 @@ geometry_msgs::PoseStamped moon_pos_set(double x, double y, double z){
 	position.pose.position.x = moon_x;
     position.pose.position.y = moon_y;
     position.pose.position.z = moon_z;
+    position.header.stamp = ros::Time::now();
     return position;
 }

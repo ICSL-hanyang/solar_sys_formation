@@ -136,5 +136,6 @@ geometry_msgs::PoseStamped earth_pos_set(double x, double y, double z){
 	position.pose.position.x = earth_x;
 	position.pose.position.y = earth_y;
 	position.pose.position.z = earth_z;
+	position.header.stamp = ros::Time::now();
 	return position;
 }
