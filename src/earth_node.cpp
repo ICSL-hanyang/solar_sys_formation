@@ -42,7 +42,7 @@ int main(int argc, char** argv)
   ros::Publisher local_pos_pub = nh.advertise<geometry_msgs::PoseStamped>("mavros_earth/setpoint_position/local", 10);
 
   ros::Subscriber local_pos_sub = nh.subscribe<geometry_msgs::PoseStamped>("mavros_earth/local_position/pose", 10, position_cb);
-  ros::Subscriber global_pos_sub = nh.subscribe("/mavros_earth/global_position/raw/fix", 10, GPS_cb);
+  ros::Subscriber global_pos_sub = nh.subscribe<sensor_msgs::NavSatFix>("/mavros_earth/global_position/raw/fix", 10, GPS_cb);
   ros::Subscriber state_sub = nh.subscribe<mavros_msgs::State>("mavros_earth/state", 10, state_cb);
 
   ros::ServiceClient arming_client = nh.serviceClient<mavros_msgs::CommandBool>("mavros_earth/cmd/arming");
