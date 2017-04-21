@@ -9,7 +9,7 @@
 double r = 8;
 double theta;
 double count = 0.0;
-double wn = 0.05;
+double wn = 0.1;
 
 double sun_x = 0.0;
 double sun_y = 0.0;
