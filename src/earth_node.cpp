@@ -9,7 +9,7 @@
 double r = 8;
 double theta;
 double count = 0.0;
-double wn = 0.1;
+double wn = 0.05;
 
 double sun_x = 0.0;
 double sun_y = 0.0;
@@ -108,7 +108,7 @@ int main(int argc, char** argv)
       }
     }
     else if (mode == 1){ // round round
-    	theta = wn * count * 0.05; // 0.4rad/s if wn=0.4 in rate 20
+    	theta = wn * count * 0.1; // 0.4rad/s if wn=0.4 in rate 20
     	pos_set = earth_pos_set(sun_x + r * sin(theta), sun_y + r * cos(theta), sun_z);
     	local_pos_pub.publish(pos_set);
     	//나중을 위한 GPS pub

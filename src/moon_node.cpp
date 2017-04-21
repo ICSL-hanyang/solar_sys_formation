@@ -9,7 +9,7 @@
 double r = 4;
 double theta;
 double count = 0.0;
-double wn = 2.4;
+double wn = 1.2;
 
 double moon_x = 0.0;
 double moon_y = 0.0;
@@ -106,7 +106,7 @@ int main(int argc, char** argv){
       }
     }
     else if (mode == 1){  // round round // geting own position
-    	theta = wn * count * 0.05; // 0.4rad/s if wn=0.4 in rate 10
+    	theta = wn * count * 0.1; // 0.4rad/s if wn=0.4 in rate 10
     	pos_set = moon_pos_set(earth_position.pose.position.x + r * sin(theta) - 2, 
     		earth_position.pose.position.y + r * cos(theta), earth_position.pose.position.z + 2);
     	local_pos_pub.publish(pos_set);
